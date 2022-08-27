@@ -1,0 +1,11 @@
+Java FX tutorial:
+	https://www.javatpoint.com/first-javafx-application
+	layaout:
+		https://www.javatpoint.com/javafx-layouts
+		
+Java FX video-tutorial:
+	https://www.youtube.com/watch?v=9XJicRt_FaI
+	
+translation apis:
+	microsoft: (has free plan)
+		https://learn.microsoft.com/en-us/azure/cognitive-services/Translator/reference/rest-api-guide

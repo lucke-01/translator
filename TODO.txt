@@ -1,0 +1,9 @@
+configuration file to configure:
+	default source language 
+	default target language
+	default api interpreter
+	apis configuration keys etc...
+	
+improve performance:
+	check if the text is the same in thread but parsing a trim in order to no reply request with final spaces
+	use ehcache to no repeat requests
