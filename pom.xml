@@ -112,6 +112,7 @@
 	</dependencies>
 	<build>
 		<plugins>
+			<!-- maven build plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -138,6 +139,7 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<!-- java fx plugin -->
 			<plugin>
 				<groupId>org.openjfx</groupId>
 				<artifactId>javafx-maven-plugin</artifactId>
@@ -146,6 +148,51 @@
 					<mainClass>com.ricardocreates.App</mainClass>
 				</configuration>
 			</plugin>
+			<!-- jar generation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                	<!-- generation of jar -->
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}</finalName>
+                            <archive>
+                                <manifestEntries>
+                                  <Multi-Release>true</Multi-Release>
+                                </manifestEntries>
+                                <manifest>
+                                    <mainClass>
+                                        com.ricardocreates.translator.gui.App
+                                    </mainClass>
+                                </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <appendAssemblyId>false</appendAssemblyId>
+                        </configuration>
+                    </execution>
+                    <!--generation of zip program -->
+					<execution>
+						<id>zipApplication</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptors>
+								<descriptor>src/main/assembly/zip.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 </project>

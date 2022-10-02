@@ -3,3 +3,4 @@ target
 .settings
 .project
 config.properties
+config/config.properties
