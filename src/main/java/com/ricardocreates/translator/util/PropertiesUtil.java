@@ -9,24 +9,24 @@ import java.util.Properties;
 import java.util.Set;
 
 public class PropertiesUtil {
+    private PropertiesUtil() {}
     public static Map<String, Object> propertiesToMap(File file) {
         Map<String, Object> propertiesMap = new HashMap<>();
         Properties prop = new Properties();
-        FileReader fileReader;
-        try {
-            
-            fileReader = new FileReader(file.getAbsolutePath());
+
+        try (FileReader fileReader = new FileReader(file.getAbsolutePath())) {
             prop.load(fileReader);
-            
+
             Set<String> propKeys = prop.stringPropertyNames();
-            
-            propKeys.stream().peek(key -> propertiesMap.put(key, prop.getProperty(key))).close();
-            
+
+            for (String propKey : propKeys) {
+                propertiesMap.put(propKey, prop.getProperty(propKey));
+            }
+
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-        
-        
+
         return propertiesMap;
     }
 }

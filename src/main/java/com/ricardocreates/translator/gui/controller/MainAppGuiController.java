@@ -121,7 +121,11 @@ public class MainAppGuiController implements Initializable {
         autoComboLanguage2 = new AutoCompleteComboBoxListener<>(comboLanguage2);
         //set interpreterService
         interpreterService = InterpreterServiceFactory.getInterpreterService(TranslatorConfig.DEFAULT_API.getKey());
-        comboTranslatorApi.setValue(userConfig.getDefaultApi());
+        TranslatorConfig.AVAILABLE_APIS.stream()
+            .filter(api->api.getKey().equals(userConfig.getDefaultApi()))
+            .findFirst()
+            .ifPresent(api->comboTranslatorApi.setValue(api));
+        //comboTranslatorApi.setValue(TranslatorConfig.DEFAULT_API);
         //fillLanguages
         fillLanguages();
         
@@ -139,6 +143,5 @@ public class MainAppGuiController implements Initializable {
         delayTextThread = new DelayTextThread(this);
         delayTextThread.start();
     }
-
 }
 

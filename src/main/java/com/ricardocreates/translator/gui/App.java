@@ -25,6 +25,11 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
     }
+    @Override
+    public void stop() throws Exception {
+        super.stop(); //To change body of generated methods, choose Tools | Templates.
+        System.exit(0);
+    }
     public static void main(String[] args) {
 		launch(args);
     }
