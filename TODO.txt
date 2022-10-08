@@ -1,3 +1,12 @@
-improve performance:
+compilation:
+	compile copying and unzipping jdk with java fx
+	compile copying script to be launched: .sh and .bat
+	use of Launch4J to generate and exe app
+
+Improve performance:
 	check if the text is the same in thread but parsing a trim in order to no reply request with final spaces
 	use ehcache to no repeat requests
+
+Refactor code:
+	Refactor code in general
+	see if it cam be encapsulate in domain application and infrastructure to do it hexagonal
