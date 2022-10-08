@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="389.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ricardocreates.translator.gui.controller.AboutGuiController">
+   <children>
+      <Label text="Translator" />
+      <ImageView fx:id="aboutImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <Label text="Developed by" />
+      <Label text="RIcardo" />
+   </children>
+</VBox>

@@ -1,5 +1,6 @@
 package com.ricardocreates.translator.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,11 +21,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import lombok.Getter;
 
 public class MainAppGuiController implements Initializable {
@@ -57,7 +62,20 @@ public class MainAppGuiController implements Initializable {
 	
 	@FXML
     void menuShowAboutAction(ActionEvent event) {
-		System.out.println("about app");
+	    try {
+	        Parent root = FXMLLoader.load(getClass().getResource("/gui/mainApp/aboutGui.fxml"));
+	        /*
+	         * if "fx:controller" is not set in fxml
+	         * fxmlLoader.setController(NewWindowController);
+	         */
+	        Scene scene = new Scene(root, 630, 400);
+	        Stage stage = new Stage();
+	        stage.setTitle("About");
+	        stage.setScene(scene);
+	        stage.show();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
     }
 	@FXML
 	void choiceTranslatorApiAction(ActionEvent event) {
@@ -77,7 +95,70 @@ public class MainAppGuiController implements Initializable {
 	    comboLanguage2.setValue(comboLanguage1Value);
 	}
 	@FXML
-	void textAreaLanguage1OnKeyRelease(KeyEvent event) {
+	void editMenuPaste(ActionEvent event) {
+	    /*final Clipboard systemClipboard = Clipboard.getSystemClipboard();
+	    final Object clipboardContent = systemClipboard.getContent(DataFormat.PLAIN_TEXT);
+	    final String clipboardContentText = clipboardContent != null ? clipboardContent.toString() : "";
+	    final IndexRange selectionRange = textAreaLanguage1.getSelection();
+	    final String textAreaLanguage1Text = textAreaLanguage1.getText();
+
+	    //calculate final text
+	    String initialText = textAreaLanguage1Text.substring(0, selectionRange.getStart());
+	    String endText = textAreaLanguage1Text.substring(selectionRange.getEnd(), textAreaLanguage1Text.length());
+	    String pastedTextResult = initialText + clipboardContentText + endText;
+	    //set final text
+	    textAreaLanguage1.setText(pastedTextResult);
+	    
+	    //set the position where it was before
+	    textAreaLanguage1.positionCaret(selectionRange.getStart() + clipboardContentText.length());*/
+	    textAreaLanguage1.paste();
+	}
+	@FXML
+	void editMenuCut(ActionEvent event) {
+	    /*final Clipboard systemClipboard = Clipboard.getSystemClipboard();
+	    final IndexRange selectionRange = textAreaLanguage1.getSelection();
+	    final String textAreaLanguage1Text = textAreaLanguage1.getText();
+	    
+	    String selectedText = textAreaLanguage1Text.substring(selectionRange.getStart(), selectionRange.getEnd());
+	    String initialText = textAreaLanguage1Text.substring(0, selectionRange.getStart());
+        String endText = textAreaLanguage1Text.substring(selectionRange.getEnd(), textAreaLanguage1Text.length());
+        String textResult = initialText + endText;
+        
+        //put selected text to clipboard
+        final ClipboardContent content = new ClipboardContent();
+        content.putString(selectedText);
+        systemClipboard.setContent(content);
+        
+        //set final text
+        textAreaLanguage1.setText(textResult);
+	    
+        //set the position where it was before
+        textAreaLanguage1.positionCaret(selectionRange.getStart());*/
+	    textAreaLanguage1.cut();
+	}
+	@FXML
+    void editMenuCopy(ActionEvent event) {
+	    textAreaLanguage1.copy();
+	}
+	@FXML
+	void editMenuUndo() {
+	    textAreaLanguage1.undo();
+	}
+	@FXML
+	void editMenuRedo() {
+	    textAreaLanguage1.redo();
+	}
+	@FXML
+	void editMenuUnselectAll() {
+	    textAreaLanguage1.deselect();
+	}
+	@FXML
+	void editMenuSelectAll() {
+	    textAreaLanguage1.selectAll();
+	}
+	@FXML
+	void menuItemQuit() {
+	    System.exit(0);
 	}
 	void processTextAreaLanguageOnKeyRelease() {
 	    System.out.println("search");
