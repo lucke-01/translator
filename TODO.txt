@@ -10,3 +10,7 @@ Improve performance:
 Refactor code:
 	Refactor code in general
 	see if it cam be encapsulate in domain application and infrastructure to do it hexagonal
+
+testing:
+	implement tests
+	implement jacoco report

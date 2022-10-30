@@ -5,17 +5,18 @@ import com.google.gson.GsonBuilder;
 
 public class GsonUtil {
     
-    public static Gson GSON;
+    private GsonUtil() {}
+    
+    public static Gson gson;
 
     public static Gson getGson() {
-        if (GSON == null) {
-            GSON = createGson();
+        if (gson == null) {
+            gson = createGson();
         }
-        return GSON;
+        return gson;
     }
     private static Gson createGson() {
         GsonBuilder builder = new GsonBuilder();
-        //builder.registerTypeAdapter(new TypeToken<ArrayList<Language>>() {}.getType(), new TranslationMapDeserializer());
         
         return builder.create();
     }
