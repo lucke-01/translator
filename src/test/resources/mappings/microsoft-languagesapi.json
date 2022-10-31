@@ -1,0 +1,21 @@
+{
+  "request" : {
+    "urlPath" : "/languages",
+    "method" : "GET"
+  },
+  "response" : {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json;charset=utf-8"
+    },
+    "jsonBody": {
+        "translation": {
+          "af": {
+            "name": "Afrikaans",
+            "nativeName": "Afrikaans",
+            "dir": "ltr"
+          }
+        }
+    }
+  }
+}
