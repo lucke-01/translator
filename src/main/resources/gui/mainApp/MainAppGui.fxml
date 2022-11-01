@@ -88,7 +88,7 @@
                   <ComboBox fx:id="comboLanguage2" editable="true" layoutX="312.0" prefWidth="250.0" />
                </children>
             </AnchorPane>
-            <ComboBox fx:id="comboTranslatorApi" prefWidth="150.0" AnchorPane.rightAnchor="1.0" />
+            <ComboBox fx:id="comboTranslatorApi" onAction="#comboTranslatorApiAction" prefWidth="150.0" AnchorPane.rightAnchor="1.0" />
          </children>
       </AnchorPane>
     <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">

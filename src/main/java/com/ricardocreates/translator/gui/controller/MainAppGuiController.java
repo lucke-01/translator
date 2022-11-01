@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Main App controller
+ */
 public class MainAppGuiController implements Initializable {
     private final UserConfig userConfig = TranslatorConfig.getUserConfig();
     @FXML
@@ -42,6 +45,7 @@ public class MainAppGuiController implements Initializable {
     @FXML
     private ComboBox<KeyValuePair<String, String>> comboTranslatorApi;
     @FXML
+    @Getter
     private TextArea textAreaLanguage1;
     @FXML
     private TextArea textAreaLanguage2;
@@ -72,10 +76,10 @@ public class MainAppGuiController implements Initializable {
         }
     }
 
+
     @FXML
-    void choiceTranslatorApiAction(ActionEvent event) {
+    void comboTranslatorApiAction(ActionEvent event) {
         interpreterService = InterpreterServiceFactory.getInterpreterService(comboTranslatorApi.getValue().getKey());
-        System.out.println("click interpreter: " + interpreterService);
         fillLanguages();
     }
 
@@ -165,6 +169,14 @@ public class MainAppGuiController implements Initializable {
                 .findFirst();
     }
 
+    /**
+     * init controller components
+     *
+     * @param location  The location used to resolve relative paths for the root object, or
+     *                  {@code null} if the location is not known.
+     * @param resources The resources used to localize the root object, or {@code null} if
+     *                  the root object was not localized.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //converters
@@ -174,12 +186,12 @@ public class MainAppGuiController implements Initializable {
         autoComboLanguage1 = new AutoCompleteComboBoxListener<>(comboLanguage1);
         autoComboLanguage2 = new AutoCompleteComboBoxListener<>(comboLanguage2);
         //set interpreterService
-        interpreterService = InterpreterServiceFactory.getInterpreterService(TranslatorConfig.DEFAULT_API.getKey());
+        //interpreterService = InterpreterServiceFactory.getInterpreterService(TranslatorConfig.DEFAULT_API.getKey());
+        interpreterService = InterpreterServiceFactory.getInterpreterService(userConfig.getDefaultApi());
         TranslatorConfig.AVAILABLE_APIS.stream()
                 .filter(api -> api.getKey().equals(userConfig.getDefaultApi()))
                 .findFirst()
                 .ifPresent(api -> comboTranslatorApi.setValue(api));
-        //comboTranslatorApi.setValue(TranslatorConfig.DEFAULT_API);
         //fillLanguages
         fillLanguages();
 

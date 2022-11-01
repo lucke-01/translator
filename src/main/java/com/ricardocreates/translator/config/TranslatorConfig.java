@@ -22,13 +22,21 @@ public class TranslatorConfig {
      */
     public static final KeyValuePair<String, String> MICROSOFT_API = new KeyValuePair<>(MICROSOFT_API_KEY, "Microsoft");
     /**
-     * List of available apis including description
+     * microsoft api
      */
-    public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(MICROSOFT_API);
+    public static final String TEST_API_KEY = "test";
+    /**
+     * microsoft api and api description
+     */
+    public static final KeyValuePair<String, String> TEST_API = new KeyValuePair<>(TEST_API_KEY, "Test");
     /**
      * default api can be override by user configuration file
      */
-    public static final KeyValuePair<String, String> DEFAULT_API = MICROSOFT_API;
+    public static final KeyValuePair<String, String> DEFAULT_API = TEST_API;
+    /**
+     * List of available apis including description
+     */
+    public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(MICROSOFT_API, TEST_API);
     /**
      * default source language can be override by user configuraion file
      */
