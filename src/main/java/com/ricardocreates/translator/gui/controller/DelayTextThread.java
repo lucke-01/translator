@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 /**
- * thread which wait some times since the last key pressed in a input
+ * thread which wait sometimes since the last key pressed in a input
  * and then will call to process that input
  */
 @AllArgsConstructor

@@ -25,6 +25,7 @@
         <jacoco.version>0.8.8</jacoco.version>
         <wiremock.version>2.27.2</wiremock.version>
         <testfx.version>4.0.16-alpha</testfx.version>
+        <!-- in order to java fx tests works -->
         <argLine>
             --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
         </argLine>
@@ -185,6 +186,7 @@
                     <includes>
                         <include>*</include>
                     </includes>
+                    <!-- do not add argLine here otherwise will break jacoco -->
                 </configuration>
             </plugin>
             <!-- maven build plugin -->

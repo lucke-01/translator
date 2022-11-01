@@ -14,3 +14,6 @@ Refactor code:
 testing:
 	implement tests
 	implement jacoco report
+
+new apis:
+    see https://libretranslate.com/

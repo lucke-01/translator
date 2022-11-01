@@ -56,8 +56,9 @@ public class TranslatorConfig {
      * @return a userConfig
      */
     public static UserConfig getUserConfig() {
+        String configFilePath = System.getProperty("configFile", CONFIG_FILE_NAME);
         if (userConfig == null) {
-            userConfig = UserConfig.of(new File(CONFIG_FILE_NAME));
+            userConfig = UserConfig.of(new File(configFilePath));
         }
         return userConfig;
 
