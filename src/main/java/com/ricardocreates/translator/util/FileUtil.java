@@ -5,13 +5,16 @@ import java.net.URL;
 
 /**
  * File utils class
- * @author ricardo
  *
+ * @author ricardo
  */
 public class FileUtil {
-    private FileUtil() {}
+    private FileUtil() {
+    }
+
     /**
      * return a File given a resource path if not found return null
+     *
      * @param resourcePath - path from resource of jar app
      * @return a file or a null
      */

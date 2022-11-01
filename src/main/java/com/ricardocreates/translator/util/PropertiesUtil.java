@@ -9,17 +9,19 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * Utily class to work with properties files
- * @author ricardo
+ * Util class to work with properties files
  *
+ * @author ricardo
  */
 public class PropertiesUtil {
-    private PropertiesUtil() {}
-    
+    private PropertiesUtil() {
+    }
+
     /**
-     * given a property file return a HashMap which will contain the properties 
-     * @param file
-     * @return
+     * given a property file return a HashMap which will contain the properties
+     *
+     * @param file - file
+     * @return a Map with properties
      */
     public static Map<String, Object> propertiesToMap(File file) {
         if (file == null) {

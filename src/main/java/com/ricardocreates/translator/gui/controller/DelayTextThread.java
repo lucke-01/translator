@@ -1,27 +1,40 @@
 package com.ricardocreates.translator.gui.controller;
 
+import lombok.AllArgsConstructor;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-
+/**
+ * thread which wait some times since the last key pressed in a input
+ * and then will call to process that input
+ */
 @AllArgsConstructor
 public class DelayTextThread extends Thread {
-    private static final long MILISECONDS_LOOP = 100;
+    /**
+     * time to wait
+     */
+    private static final long MILLISECONDS_LOOP = 100;
+    /**
+     * desired time to wait until the last key press
+     */
+    private static final long DESIRED_DURATION_BETWEEN_LAST_KEY_PRESSED = 700;
+    /**
+     * controller to communicate
+     */
     private MainAppGuiController mainAppGuiController;
 
     @Override
     public void run() {
         while (true) {
             try {
-                Thread.sleep(MILISECONDS_LOOP);
+                Thread.sleep(MILLISECONDS_LOOP);
             } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
             if (mainAppGuiController.getLastKeyPressedTime() != null) {
-                final Duration durationBetweenLastKeyPressedd = Duration.between(mainAppGuiController.getLastKeyPressedTime(), LocalDateTime.now());
-                if (durationBetweenLastKeyPressedd.toMillis() >  700) {
+                final Duration durationBetweenLastKeyPressed = Duration.between(mainAppGuiController.getLastKeyPressedTime(), LocalDateTime.now());
+                if (durationBetweenLastKeyPressed.toMillis() > DESIRED_DURATION_BETWEEN_LAST_KEY_PRESSED) {
                     mainAppGuiController.processTextAreaLanguageOnKeyRelease();
                 }
             }
