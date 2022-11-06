@@ -2,6 +2,8 @@ package com.ricardocreates.translator.interpreter.test;
 
 import com.ricardocreates.translator.interpreter.InterpreterService;
 import com.ricardocreates.translator.interpreter.model.Language;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
 
@@ -19,6 +21,6 @@ public class TestApiInterpreterService implements InterpreterService {
 
     @Override
     public String translate(String sourceLanguage, String destLanguage, String text) {
-        return "test";
+        return RandomStringUtils.random(RandomUtils.nextInt(1, 100), true, false);
     }
 }

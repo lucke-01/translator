@@ -136,7 +136,7 @@ public class MainAppGuiController implements Initializable {
         System.exit(0);
     }
 
-    void processTextAreaLanguageOnKeyRelease() {
+    public void processTextAreaLanguageOnKeyRelease() {
         String from = comboLanguage1.getValue().getKey();
         String to = comboLanguage2.getValue().getKey();
         String text = textAreaLanguage1.getText();
