@@ -1,6 +1,6 @@
 package com.ricardocreates.translator.gui;
 
-import com.ricardocreates.translator.gui.controller.DelayTextThread;
+import com.ricardocreates.translator.gui.controller.DelayTextRunnable;
 import com.ricardocreates.translator.gui.controller.MainAppGuiController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,12 +16,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
-public class DelayTextThreadUnitTest {
+public class DelayTextRunnableUnitTest {
     @Mock
     private MainAppGuiController mainAppGuiController;
 
     @InjectMocks
-    private DelayTextThread delayTextThread;
+    private DelayTextRunnable delayTextThread;
 
     @Test
     @DisplayName("should process test area")
@@ -32,7 +32,6 @@ public class DelayTextThreadUnitTest {
 
         given(mainAppGuiController.getLastKeyPressedTime())
                 .willReturn(lastKeyPressedTime);
-        delayTextThread.setWatchMode(false);
         //when
         delayTextThread.run();
         //then

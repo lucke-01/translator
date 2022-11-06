@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main App controller
@@ -56,7 +59,7 @@ public class MainAppGuiController implements Initializable {
     @Getter
     private LocalDateTime lastKeyPressedTime;
     private InterpreterService interpreterService;
-    private DelayTextThread delayTextThread;
+    private DelayTextRunnable delayTextThread;
 
     @FXML
     void menuShowAboutAction(ActionEvent event) {
@@ -206,8 +209,10 @@ public class MainAppGuiController implements Initializable {
                 .ifPresent(lang -> comboLanguage2.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
 
         //run threads
-        delayTextThread = new DelayTextThread(this);
-        delayTextThread.start();
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        executor.scheduleWithFixedDelay(new DelayTextRunnable(this), 0, DelayTextRunnable.MILLISECONDS_LOOP, TimeUnit.MILLISECONDS);
+        //delayTextThread = new DelayTextThread(this);
+        //delayTextThread.start();
     }
 }
 
