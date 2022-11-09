@@ -22,6 +22,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,8 +43,10 @@ public class MainAppGuiController implements Initializable {
     @FXML
     private MenuItem menuHelpAbout;
     @FXML
+    @Setter
     private ComboBox<KeyValuePair<String, String>> comboLanguage1;
     @FXML
+    @Setter
     private ComboBox<KeyValuePair<String, String>> comboLanguage2;
     @FXML
     private ComboBox<KeyValuePair<String, String>> comboTranslatorApi;
@@ -51,6 +54,7 @@ public class MainAppGuiController implements Initializable {
     @Getter
     private TextArea textAreaLanguage1;
     @FXML
+    @Getter
     private TextArea textAreaLanguage2;
     private AutoCompleteComboBoxListener<KeyValuePair<String, String>> autoComboLanguage1;
     private AutoCompleteComboBoxListener<KeyValuePair<String, String>> autoComboLanguage2;
@@ -62,21 +66,17 @@ public class MainAppGuiController implements Initializable {
     private DelayTextRunnable delayTextThread;
 
     @FXML
-    void menuShowAboutAction(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/gui/mainApp/aboutGui.fxml"));
-            /*
-             * if "fx:controller" is not set in fxml
-             * fxmlLoader.setController(NewWindowController);
-             */
-            Scene scene = new Scene(root, 630, 400);
-            Stage stage = new Stage();
-            stage.setTitle("About");
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    void menuShowAboutAction(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/mainApp/aboutGui.fxml"));
+        /*
+         * if "fx:controller" is not set in fxml
+         * fxmlLoader.setController(NewWindowController);
+         */
+        Scene scene = new Scene(root, 630, 400);
+        Stage stage = new Stage();
+        stage.setTitle("About");
+        stage.setScene(scene);
+        stage.show();
     }
 
 
@@ -92,7 +92,7 @@ public class MainAppGuiController implements Initializable {
     }
 
     @FXML
-    void revertButtonOnAction(ActionEvent event) {
+    public void revertButtonOnAction(ActionEvent event) {
         final KeyValuePair comboLanguage1Value = this.comboLanguage1.getValue();
 
         comboLanguage1.setValue(comboLanguage2.getValue());
@@ -100,42 +100,42 @@ public class MainAppGuiController implements Initializable {
     }
 
     @FXML
-    void editMenuPaste(ActionEvent event) {
+    public void editMenuPaste(ActionEvent event) {
         textAreaLanguage1.paste();
     }
 
     @FXML
-    void editMenuCut(ActionEvent event) {
+    public void editMenuCut(ActionEvent event) {
         textAreaLanguage1.cut();
     }
 
     @FXML
-    void editMenuCopy(ActionEvent event) {
+    public void editMenuCopy(ActionEvent event) {
         textAreaLanguage1.copy();
     }
 
     @FXML
-    void editMenuUndo() {
+    public void editMenuUndo() {
         textAreaLanguage1.undo();
     }
 
     @FXML
-    void editMenuRedo() {
+    public void editMenuRedo() {
         textAreaLanguage1.redo();
     }
 
     @FXML
-    void editMenuUnselectAll() {
+    public void editMenuUnselectAll() {
         textAreaLanguage1.deselect();
     }
 
     @FXML
-    void editMenuSelectAll() {
+    public void editMenuSelectAll() {
         textAreaLanguage1.selectAll();
     }
 
     @FXML
-    void menuItemQuit() {
+    public void menuItemQuit() {
         System.exit(0);
     }
 
@@ -189,7 +189,6 @@ public class MainAppGuiController implements Initializable {
         autoComboLanguage1 = new AutoCompleteComboBoxListener<>(comboLanguage1);
         autoComboLanguage2 = new AutoCompleteComboBoxListener<>(comboLanguage2);
         //set interpreterService
-        //interpreterService = InterpreterServiceFactory.getInterpreterService(TranslatorConfig.DEFAULT_API.getKey());
         interpreterService = InterpreterServiceFactory.getInterpreterService(userConfig.getDefaultApi());
         TranslatorConfig.AVAILABLE_APIS.stream()
                 .filter(api -> api.getKey().equals(userConfig.getDefaultApi()))
@@ -210,9 +209,11 @@ public class MainAppGuiController implements Initializable {
 
         //run threads
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleWithFixedDelay(new DelayTextRunnable(this), 0, DelayTextRunnable.MILLISECONDS_LOOP, TimeUnit.MILLISECONDS);
-        //delayTextThread = new DelayTextThread(this);
-        //delayTextThread.start();
+        DelayTextRunnable delayTextRunnable = new DelayTextRunnable(this);
+        delayTextRunnable.setDesiredDurationBetweenLastKeyPressed(this.userConfig.getDelayedThread().getDesiredDurationBetweenLastKeyPressed());
+        long milliseconds = this.userConfig.getDelayedThread().getMillisecondsLoop();
+        executor.scheduleWithFixedDelay(
+                delayTextRunnable,
+                0, milliseconds, TimeUnit.MILLISECONDS);
     }
 }
-

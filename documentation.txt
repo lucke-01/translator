@@ -9,3 +9,6 @@ Java FX video-tutorial:
 translation apis:
 	microsoft: (has free plan)
 		https://learn.microsoft.com/en-us/azure/cognitive-services/Translator/reference/rest-api-guide
+Testing resources
+    javafx testing with testFX:
+        https://github.com/TestFX/TestFX

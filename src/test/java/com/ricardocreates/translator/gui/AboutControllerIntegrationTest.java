@@ -1,6 +1,6 @@
 package com.ricardocreates.translator.gui;
 
-import com.ricardocreates.translator.gui.controller.MainAppGuiController;
+import com.ricardocreates.translator.gui.controller.AboutGuiController;
 import com.ricardocreates.translator.util.FileUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,8 +25,8 @@ import static org.hamcrest.Matchers.is;
  * --add-opens graph.designer.drawing.pane/fr.leward.graphdesigner.ui.drawingpane=ALL-UNNAMED
  */
 @ExtendWith(ApplicationExtension.class)
-class MainAppControllerTest {
-    MainAppGuiController mainController;
+class AboutControllerIntegrationTest {
+    AboutGuiController aboutGuiController;
     Pane mainRoot;
     Stage mainStage;
 
@@ -40,7 +40,7 @@ class MainAppControllerTest {
         //set config file to use src/test/resources/configExample.properties
         System.setProperty("configFile", FileUtil.getFileFromResourcePath("configExample.properties").toString());
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/mainApp/MainAppGui.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/mainApp/aboutGui.fxml"));
         mainRoot = loader.load();
         Scene scene = new Scene(mainRoot);
 
@@ -49,17 +49,15 @@ class MainAppControllerTest {
         stage.setScene(scene);
         stage.show();
 
-        this.mainController = loader.getController();
+        this.aboutGuiController = loader.getController();
 
         mainStage = stage;
     }
 
     @Test
-    void should_contain_textAreaLanguage1() {
-        System.out.println(mainController);
-        System.out.println(mainController.getTextAreaLanguage1());
-        assertThat(mainController, is(notNullValue()));
-        assertThat(mainController.getTextAreaLanguage1(), is(notNullValue()));
+    void should_initialize_aboutGuiController() {
+        System.out.println(aboutGuiController);
+        assertThat(aboutGuiController, is(notNullValue()));
     }
 
 }

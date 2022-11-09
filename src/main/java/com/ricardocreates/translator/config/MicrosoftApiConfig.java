@@ -3,11 +3,11 @@ package com.ricardocreates.translator.config;
 import lombok.Builder;
 import lombok.Data;
 
-@Data
-@Builder
 /**
  * Model of configuration file
  */
+@Data
+@Builder
 public class MicrosoftApiConfig {
     /**
      * microsoft api key

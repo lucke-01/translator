@@ -49,32 +49,32 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ricardocreates.translator.gui.controller.MainAppGuiController">
+<VBox id="mainBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ricardocreates.translator.gui.controller.MainAppGuiController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar id="menuBar" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#menuItemQuit" text="Quit" />
+            <MenuItem fx:id="menuQuit" mnemonicParsing="false" onAction="#menuItemQuit" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu id="menuEdit" mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#editMenuUndo" text="Undo" />
-            <MenuItem mnemonicParsing="false" onAction="#editMenuRedo" text="Redo" />
+            <MenuItem id="menuUndo1" fx:id="menuUndo" mnemonicParsing="false" onAction="#editMenuUndo" text="Undo" />
+            <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#editMenuRedo" text="Redo" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#editMenuCut" text="Cut" />
-            <MenuItem mnemonicParsing="false" onAction="#editMenuCopy" text="Copy" />
-            <MenuItem mnemonicParsing="false" onAction="#editMenuPaste" text="Paste" />
+            <MenuItem fx:id="menuCut" mnemonicParsing="false" onAction="#editMenuCut" text="Cut" />
+            <MenuItem fx:id="menuCopy" mnemonicParsing="false" onAction="#editMenuCopy" text="Copy" />
+            <MenuItem id="menuPaste" fx:id="menuPaste" mnemonicParsing="false" onAction="#editMenuPaste" text="Paste" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#editMenuSelectAll" text="Select All" />
-            <MenuItem mnemonicParsing="false" onAction="#editMenuUnselectAll" text="Unselect All" />
+            <MenuItem id="menuSelectAll" fx:id="menuSelectAll" mnemonicParsing="false" onAction="#editMenuSelectAll" text="Select All" />
+            <MenuItem fx:id="menuUnselectAll" mnemonicParsing="false" onAction="#editMenuUnselectAll" text="Unselect All" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem fx:id="menuHelpAbout" mnemonicParsing="false" onAction="#menuShowAboutAction" text="About MyHelloApp" />
+            <MenuItem id="menuHelpAbout" fx:id="menuHelpAbout" mnemonicParsing="false" onAction="#menuShowAboutAction" styleClass="menuHelpAbout" text="About MyHelloApp" />
           </items>
         </Menu>
       </menus>
@@ -83,9 +83,9 @@
          <children>
             <AnchorPane layoutY="1.0" prefHeight="24.0" prefWidth="700.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <ComboBox fx:id="comboLanguage1" editable="true" prefWidth="250.0" />
+                  <ComboBox id="comboLanguage1" fx:id="comboLanguage1" editable="true" prefWidth="250.0" />
                   <Button id="buttonRevertLanguage" fx:id="buttonRevert" layoutX="250.0" mnemonicParsing="false" onAction="#revertButtonOnAction" text="Revert" />
-                  <ComboBox fx:id="comboLanguage2" editable="true" layoutX="312.0" prefWidth="250.0" />
+                  <ComboBox id="comboLanguage2" fx:id="comboLanguage2" editable="true" layoutX="312.0" prefWidth="250.0" />
                </children>
             </AnchorPane>
             <ComboBox fx:id="comboTranslatorApi" onAction="#comboTranslatorApiAction" prefWidth="150.0" AnchorPane.rightAnchor="1.0" />

@@ -27,7 +27,6 @@ public class DelayTextRunnableUnitTest {
     @DisplayName("should process test area")
     void should_process_testArea() {
         //given
-        final LocalDateTime nowTime = LocalDateTime.of(2022, 1, 1, 10, 10, 10, 100);
         final LocalDateTime lastKeyPressedTime = LocalDateTime.of(2022, 1, 1, 10, 10, 10, 300);
 
         given(mainAppGuiController.getLastKeyPressedTime())
@@ -37,5 +36,20 @@ public class DelayTextRunnableUnitTest {
         //then
         verify(mainAppGuiController, times(1)).getLastKeyPressedTime();
         verify(mainAppGuiController, times(1)).processTextAreaLanguageOnKeyRelease();
+    }
+
+    @Test
+    @DisplayName("should not process test area")
+    void should_not_process_testArea() {
+        //given
+        final LocalDateTime lastKeyPressedTime = LocalDateTime.of(9999, 1, 1, 10, 10, 10, 300);
+
+        given(mainAppGuiController.getLastKeyPressedTime())
+                .willReturn(lastKeyPressedTime);
+        //when
+        delayTextThread.run();
+        //then
+        verify(mainAppGuiController, times(1)).getLastKeyPressedTime();
+        verify(mainAppGuiController, times(0)).processTextAreaLanguageOnKeyRelease();
     }
 }

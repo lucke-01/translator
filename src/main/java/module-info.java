@@ -18,4 +18,5 @@ module com.ricardocreates {
     exports com.ricardocreates.translator.interpreter.microsoft to org.mapstruct;
     opens com.ricardocreates.translator.gui.controller to javafx.fxml;
     opens com.ricardocreates.translator.interpreter.microsoft.entity to com.google.gson;
+
 }

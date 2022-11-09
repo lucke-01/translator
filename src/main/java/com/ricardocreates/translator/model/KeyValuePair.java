@@ -1,6 +1,7 @@
 package com.ricardocreates.translator.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -15,9 +16,10 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class KeyValuePair<T, E> {
-    private final T key;
-    private final E value;
+    private T key;
+    private E value;
 
     public KeyValuePair(T key, E value) {
         this.key = key;
