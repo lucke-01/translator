@@ -348,6 +348,7 @@
                         <exclude>com/ricardocreates/translator/interpreter/microsoft/entity/**/*.*</exclude>
                         <exclude>com/ricardocreates/translator/interpreter/model/**/*.*</exclude>
                         <exclude>com/ricardocreates/translator/model/**/*.*</exclude>
+                        <exclude>com/ricardocreates/translator/gui/component/**/*.*</exclude>
                         <exclude>**/config/*</exclude>
                     </excludes>
                 </configuration>

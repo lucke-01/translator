@@ -18,6 +18,7 @@ import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Start;
+import org.testfx.util.WaitForAsyncUtils;
 
 import java.io.IOException;
 
@@ -64,8 +65,6 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
 
         this.mainController = loader.getController();
 
-        //this.mainController = Mockito.spy(this.mainController);
-
         mainStage = stage;
     }
 
@@ -78,6 +77,7 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
         assertThat(comboLanguage2.getKey(), is(equalTo(ES_LANGUAGE_KEY)));
         //when
         clickOn("#buttonRevertLanguage");
+        WaitForAsyncUtils.waitForFxEvents();
         //then
         comboLanguage1 = (KeyValuePair<String, String>) robot.lookup("#comboLanguage1").queryAs(ComboBox.class).getValue();
         comboLanguage2 = (KeyValuePair<String, String>) robot.lookup("#comboLanguage2").queryAs(ComboBox.class).getValue();
@@ -103,15 +103,12 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
 
     @Test
     void should_menuPaste_textArea_do_paste() {
-        javaFxThread = new JavaFxTestThread(() -> {
-            //givenss
+        interact(() -> {
+            //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuPaste");
             //when
             menuItem.fire();
-            //then
-            //Mockito.verify(mainController, times(1)).editMenuPaste(any());
         });
-        javaFxThread.start();
     }
 
     @Test

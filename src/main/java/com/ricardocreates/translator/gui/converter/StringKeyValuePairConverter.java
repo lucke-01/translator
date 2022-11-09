@@ -4,6 +4,7 @@ import com.ricardocreates.translator.gui.controller.MainAppGuiController;
 import com.ricardocreates.translator.interpreter.model.Language;
 import com.ricardocreates.translator.model.KeyValuePair;
 import javafx.util.StringConverter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.Optional;
 /**
  * converter from language string to language and description and vice-versa
  */
+@NoArgsConstructor
 public class StringKeyValuePairConverter extends StringConverter<KeyValuePair<String, String>> {
     /**
      * controller to communicate
