@@ -7,20 +7,23 @@ import lombok.Data;
 import java.io.File;
 import java.util.Map;
 
-@Data
-@Builder
 /**
  * representation of user config file
  */
+@Data
+@Builder
 public class UserConfig {
     public static final String DEFAULT_API_KEY_PROPERTY = "config.defaultApi";
     public static final String DEFAULT_SOURCE_LANGUAGE_PROPERTY = "config.defaultSourceLanguage";
     public static final String DEFAULT_TARGET_LANGUAGE_PROPERTY = "config.defaultTargetLanguage";
-    public static final String MICROSOFT_API_SUBCRIPTION_KEY_PROPERTY = "config.api.microsoft.ocpApimSubscriptionKey";
-    public static final String MICROSOFT_API_SUBCRIPTION_REGION_PROPERTY = "config.api.microsoft.ocpApimSubscriptionRegion";
-
+    public static final String MICROSOFT_API_SUBSCRIPTION_KEY_PROPERTY = "config.api.microsoft.ocpApimSubscriptionKey";
+    public static final String MICROSOFT_API_SUBSCRIPTION_REGION_PROPERTY = "config.api.microsoft.ocpApimSubscriptionRegion";
     public static final String DELAYED_THREAD_DESIRED_DURATION_BETWEEN_LAST_KEY_PRESSED_PROPERTY = "delayThread.desiredDurationBetweenLastKeyPressed";
     public static final String DELAYED_THREAD_MILLISECONDS_LOOP_PROPERTY = "delayThread.millisecondsLoop";
+
+    public static final String LIBRE_TRANSLATE_HOST_PROPERTY = "libreTranslate.host";
+    public static final String LIBRE_TRANSLATE_HOST = "https://libretranslate.de";
+    public static final String LIBRE_TRANSLATE_API_KEY_PROPERTY = "libreTranslate.apiKey";
 
     /**
      * time to wait
@@ -36,6 +39,7 @@ public class UserConfig {
     private String defaultTargetLanguage;
     private MicrosoftApiConfig microsoftApiConfig;
     private DelayedThreadConfig delayedThread;
+    private LibreTranslateConfig libreTranslateConfig;
 
     /**
      * creates a new instance of userConfig using config.json file or default config if no exists
@@ -60,10 +64,16 @@ public class UserConfig {
                                 )
                                 .build()
                 )
+                .libreTranslateConfig(
+                        LibreTranslateConfig.builder()
+                                .host(properties.getOrDefault(LIBRE_TRANSLATE_HOST_PROPERTY, LIBRE_TRANSLATE_HOST).toString())
+                                .apiKey(properties.getOrDefault(LIBRE_TRANSLATE_API_KEY_PROPERTY, "").toString())
+                                .build()
+                )
                 .microsoftApiConfig(
                         MicrosoftApiConfig.builder()
-                                .ocpApimSubscriptionKey(properties.get(MICROSOFT_API_SUBCRIPTION_KEY_PROPERTY).toString())
-                                .ocpApimSubscriptionRegion(properties.get(MICROSOFT_API_SUBCRIPTION_REGION_PROPERTY).toString())
+                                .ocpApimSubscriptionKey(properties.get(MICROSOFT_API_SUBSCRIPTION_KEY_PROPERTY).toString())
+                                .ocpApimSubscriptionRegion(properties.get(MICROSOFT_API_SUBSCRIPTION_REGION_PROPERTY).toString())
                                 .build()
                 )
                 .build();

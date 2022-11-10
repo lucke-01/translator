@@ -17,11 +17,11 @@ module com.ricardocreates {
     requires feign.gson;
     requires feign.slf4j;
     exports com.ricardocreates.translator.gui;
-    //exports com.ricardocreates.translator.gui.controller to javafx.fxml;
     exports com.ricardocreates.translator.gui.controller;
     exports com.ricardocreates.translator.interpreter.microsoft to org.mapstruct;
     exports com.ricardocreates.translator.gui.converter;
-    exports com.ricardocreates.translator.interpreter.libretranslate to org.mapstruct;
+    //exports com.ricardocreates.translator.interpreter.libretranslate to org.mapstruct;
+    exports com.ricardocreates.translator.interpreter.libretranslate;
     opens com.ricardocreates.translator.gui.controller to javafx.fxml;
     opens com.ricardocreates.translator.interpreter.microsoft.entity to com.google.gson;
     opens com.ricardocreates.translator.interpreter.libretranslate.entity to com.google.gson;

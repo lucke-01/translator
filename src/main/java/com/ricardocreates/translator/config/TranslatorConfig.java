@@ -14,6 +14,14 @@ public class TranslatorConfig {
      */
     public static final String CONFIG_FILE_NAME = "./config/config.properties";
     /**
+     * libre translate key
+     */
+    public static final String LIBRE_TRANSLATE_API_KEY = "libreTranslate";
+    /**
+     * libre translate api
+     */
+    public static final KeyValuePair<String, String> LIBRE_TRANSLATE_API = new KeyValuePair<>(LIBRE_TRANSLATE_API_KEY, "Libre Translate");
+    /**
      * microsoft api
      */
     public static final String MICROSOFT_API_KEY = "microsoft";
@@ -36,7 +44,7 @@ public class TranslatorConfig {
     /**
      * List of available apis including description
      */
-    public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(MICROSOFT_API, TEST_API);
+    public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(MICROSOFT_API, TEST_API, LIBRE_TRANSLATE_API);
     /**
      * default source language can be override by user configuraion file
      */

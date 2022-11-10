@@ -63,7 +63,8 @@ public class MainAppGuiController implements Initializable {
     @Getter
     private LocalDateTime lastKeyPressedTime;
     private InterpreterService interpreterService;
-    private DelayTextRunnable delayTextThread;
+
+    private ScheduledExecutorService delayedTranslationThread;
 
     @FXML
     void menuShowAboutAction(ActionEvent event) throws IOException {
@@ -208,11 +209,11 @@ public class MainAppGuiController implements Initializable {
                 .ifPresent(lang -> comboLanguage2.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
 
         //run threads
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        this.delayedTranslationThread = Executors.newSingleThreadScheduledExecutor();
         DelayTextRunnable delayTextRunnable = new DelayTextRunnable(this);
         delayTextRunnable.setDesiredDurationBetweenLastKeyPressed(this.userConfig.getDelayedThread().getDesiredDurationBetweenLastKeyPressed());
         long milliseconds = this.userConfig.getDelayedThread().getMillisecondsLoop();
-        executor.scheduleWithFixedDelay(
+        this.delayedTranslationThread.scheduleWithFixedDelay(
                 delayTextRunnable,
                 0, milliseconds, TimeUnit.MILLISECONDS);
     }

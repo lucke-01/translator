@@ -27,12 +27,12 @@ public class AboutGuiController implements Initializable {
         try {
             imageUri = getClass().getResource("/gui/assets/app-icon.png").toURI();
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e);
         }
         try {
             aboutImage.setImage(new Image(new FileInputStream(new File(imageUri))));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException(e);
         }
     }
 
