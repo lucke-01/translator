@@ -202,7 +202,12 @@
             <version>${testfx.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <version>3.1.0</version>
+            <type>maven-plugin</type>
+        </dependency>
     </dependencies>
     <build>
         <testResources>
@@ -217,6 +222,35 @@
             </testResource>
         </testResources>
         <plugins>
+            <!-- unzip jdk -->
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>concat jdk</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <target name="unzip jdk">
+                                <echo message="concatenating jdk17 part file"/>
+                                <concat destfile="${project.build.directory}/jdk/jdk17-full.zip" binary="true">
+                                    <fileset dir="build-app/javafx-build">
+                                        <include name="jdk17.zip*"/>
+                                    </fileset>
+                                </concat>
+                                <echo message="END concatenating jdk17 part file"/>
+                                <echo message="unzipping concat jdk17 file"/>
+                                <unzip src="${project.build.directory}/jdk/jdk17-full.zip"
+                                       dest="${project.build.directory}/jdk/jdk17"/>
+                                <echo message="End unzipping concat jdk17 file"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- execute test on building app -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -236,6 +270,8 @@
                 <version>3.8.0</version>
                 <configuration>
                     <release>17</release>
+                    <debug>false</debug>
+                    <debuglevel>ERROR</debuglevel>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

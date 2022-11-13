@@ -1,0 +1,3 @@
+#!/bin/bash
+chmod 777 ./jdk-17/bin/java
+./jdk-17/bin/java -jar translator.jar

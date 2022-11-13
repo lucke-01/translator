@@ -4,3 +4,4 @@ target
 .project
 config.properties
 config/config.properties
+build-app/config.properties
