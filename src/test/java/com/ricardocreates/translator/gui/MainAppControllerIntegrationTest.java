@@ -41,7 +41,6 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
     Pane mainRoot;
     Stage mainStage;
     FXMLLoader loader;
-    JavaFxTestThread javaFxThread;
 
     /**
      * Will be called with {@code @Before} semantics, i. e. before each test method.
@@ -113,7 +112,7 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
 
     @Test
     void should_menuCut_textArea_do_cut() {
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuCut");
             //when
@@ -121,12 +120,11 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
             //then
             //Mockito.verify(mainController, times(1)).editMenuCut(any());
         });
-        javaFxThread.start();
     }
 
     @Test
     void should_menuCopy_textArea_do_copy() {
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuCopy");
             //when
@@ -134,12 +132,11 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
             //then
             //Mockito.verify(mainController, times(1)).editMenuCopy(any());
         });
-        javaFxThread.start();
     }
 
     @Test
     void should_menuUndo_textArea_do_undo() {
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuUndo");
             //when
@@ -147,12 +144,11 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
             //then
             //Mockito.verify(mainController, times(1)).editMenuUndo();
         });
-        javaFxThread.start();
     }
 
     @Test
     void should_menuRedo_textArea_do_redo() {
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuRedo");
             //when
@@ -160,12 +156,11 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
             //then
             //Mockito.verify(mainController, times(1)).editMenuRedo();
         });
-        javaFxThread.start();
     }
 
     @Test
     void should_menuSelectAll_textArea_do_selectAll() {
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuSelectAll");
             //when
@@ -174,12 +169,11 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
             //then
             //Mockito.verify(mainController, times(1)).editMenuSelectAll();
         });
-        javaFxThread.start();
     }
 
     @Test
     void should_menuUnselectAll_textArea_do_unselectAll() {
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             //given
             MenuItem menuItem = (MenuItem) loader.getNamespace().get("menuUnselectAll");
             //when
@@ -187,19 +181,16 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
             //then
             //Mockito.verify(mainController, times(1)).editMenuUnselectAll();
         });
-        javaFxThread.start();
     }
 
     @Test
     void should_open_about() {
-        //to check component programmatically without using controller we need create a java fx thread
-        javaFxThread = new JavaFxTestThread(() -> {
+        interact(() -> {
             assertDoesNotThrow(() -> {
                 MenuItem menuHelpAbout = (MenuItem) loader.getNamespace().get("menuHelpAbout");
                 menuHelpAbout.fire();
             });
         });
-        javaFxThread.start();
     }
 
 }
