@@ -1,13 +1,14 @@
 package com.ricardocreates.translator.gui.converter;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.ricardocreates.translator.gui.controller.MainAppGuiController;
 import com.ricardocreates.translator.interpreter.model.Language;
 import com.ricardocreates.translator.model.KeyValuePair;
+
 import javafx.util.StringConverter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * converter from language string to language and description and vice-versa
@@ -32,7 +33,7 @@ public class StringKeyValuePairConverter extends StringConverter<KeyValuePair<St
     // Method to convert a Customer-Object to a String
     @Override
     public String toString(KeyValuePair<String, String> value) {
-        return value.getValue();
+        return value != null ? value.getValue() : "";
     }
 
     // Method to convert a String to a Customer-Object

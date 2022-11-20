@@ -2,6 +2,13 @@ This application will connect with translator api to get translation:
 list of available translation services so far:
 google-translator api.
 
+
+Execute app in IDE:
+
+add this parameter to configure the config file:
+
+-DconfigFile=build-app/config/configExample.properties
+
 build-app:
 
 build-app/javafx-build

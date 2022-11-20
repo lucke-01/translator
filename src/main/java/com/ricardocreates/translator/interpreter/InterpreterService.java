@@ -1,8 +1,8 @@
 package com.ricardocreates.translator.interpreter;
 
-import com.ricardocreates.translator.interpreter.model.Language;
-
 import java.util.List;
+
+import com.ricardocreates.translator.interpreter.model.Language;
 
 /**
  * Interpreter api

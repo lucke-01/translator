@@ -1,5 +1,17 @@
 package com.ricardocreates.translator.gui.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import com.ricardocreates.translator.config.TranslatorConfig;
 import com.ricardocreates.translator.config.UserConfig;
 import com.ricardocreates.translator.gui.component.AutoCompleteComboBoxListener;
@@ -8,6 +20,8 @@ import com.ricardocreates.translator.interpreter.InterpreterService;
 import com.ricardocreates.translator.interpreter.InterpreterServiceFactory;
 import com.ricardocreates.translator.interpreter.model.Language;
 import com.ricardocreates.translator.model.KeyValuePair;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,17 +37,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.IOException;
-import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Main App controller
@@ -154,17 +157,12 @@ public class MainAppGuiController implements Initializable {
     }
 
     void fillLanguages() {
-        this.languages = interpreterService.getAvailableLanguages();
-        ObservableList<KeyValuePair<String, String>> languagesValuePair = FXCollections.observableArrayList();
-        List<KeyValuePair<String, String>> valuePairLanguages = this.languages.stream()
-                .map(l -> new KeyValuePair<String, String>(l.getAlfa2Code(), l.getName()))
-                .toList();
-        languagesValuePair.addAll(valuePairLanguages);
-
-        comboLanguage1.getItems().clear();
-        comboLanguage2.getItems().clear();
-        comboLanguage1.getItems().addAll(valuePairLanguages);
-        comboLanguage2.getItems().addAll(valuePairLanguages);
+        getAsycnAvailableLanguages().thenAccept(availableLanguages -> {
+            setUpLanguages(availableLanguages);
+        });
+    }
+    private CompletableFuture<List<Language>> getAsycnAvailableLanguages() {
+        return CompletableFuture.supplyAsync(() -> interpreterService.getAvailableLanguages());
     }
 
     private Optional<Language> findLanguageByAlfa2Key(String alfa2Key) {
@@ -197,17 +195,10 @@ public class MainAppGuiController implements Initializable {
                 .ifPresent(api -> comboTranslatorApi.setValue(api));
         //fillLanguages
         fillLanguages();
-
+        
         //translator apis
         comboTranslatorApi.getItems().clear();
         comboTranslatorApi.getItems().addAll(TranslatorConfig.AVAILABLE_APIS);
-
-        //set default languages
-        findLanguageByAlfa2Key(userConfig.getDefaultSourceLanguage())
-                .ifPresent(lang -> comboLanguage1.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
-        findLanguageByAlfa2Key(userConfig.getDefaultTargetLanguage())
-                .ifPresent(lang -> comboLanguage2.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
-
         //run threads
         this.delayedTranslationThread = Executors.newSingleThreadScheduledExecutor();
         DelayTextRunnable delayTextRunnable = new DelayTextRunnable(this);
@@ -216,5 +207,27 @@ public class MainAppGuiController implements Initializable {
         this.delayedTranslationThread.scheduleWithFixedDelay(
                 delayTextRunnable,
                 0, milliseconds, TimeUnit.MILLISECONDS);
+    }
+    public void setUpLanguages(List<Language> avaiableLanguages) {
+        Platform.runLater(() -> {
+            this.languages = avaiableLanguages;
+            ObservableList<KeyValuePair<String, String>> languagesValuePair = FXCollections.observableArrayList();
+            List<KeyValuePair<String, String>> valuePairLanguages = this.languages.stream()
+                    .map(l -> new KeyValuePair<String, String>(l.getAlfa2Code(), l.getName()))
+                    .toList();
+            languagesValuePair.addAll(valuePairLanguages);
+
+            comboLanguage1.getItems().clear();
+            comboLanguage2.getItems().clear();
+            comboLanguage1.getItems().addAll(valuePairLanguages);
+            comboLanguage2.getItems().addAll(valuePairLanguages);
+            
+            //set default languages
+            findLanguageByAlfa2Key(userConfig.getDefaultSourceLanguage())
+                    .ifPresent(lang -> comboLanguage1.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
+            findLanguageByAlfa2Key(userConfig.getDefaultTargetLanguage())
+                    .ifPresent(lang -> comboLanguage2.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
+        });
+        
     }
 }
