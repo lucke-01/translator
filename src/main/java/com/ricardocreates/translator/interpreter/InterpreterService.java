@@ -1,8 +1,8 @@
 package com.ricardocreates.translator.interpreter;
 
-import java.util.List;
-
 import com.ricardocreates.translator.interpreter.model.Language;
+
+import java.util.List;
 
 /**
  * Interpreter api
@@ -15,7 +15,7 @@ public interface InterpreterService {
      *
      * @return a list of available languages
      */
-    public List<Language> getAvailableLanguages();
+    List<Language> getAvailableLanguages();
 
     /**
      * given a source, target language and a text call return translated text
@@ -25,5 +25,5 @@ public interface InterpreterService {
      * @param text           - to be translated
      * @return translation
      */
-    public String translate(String sourceLanguage, String destLanguage, String text);
+    String translate(String sourceLanguage, String destLanguage, String text);
 }

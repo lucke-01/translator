@@ -16,9 +16,11 @@ module com.ricardocreates {
     requires feign.okhttp;
     requires feign.gson;
     requires feign.slf4j;
+    requires org.jsoup;
     exports com.ricardocreates.translator.gui;
     exports com.ricardocreates.translator.gui.controller;
     exports com.ricardocreates.translator.interpreter.microsoft to org.mapstruct;
+    exports com.ricardocreates.translator.interpreter.cambridge to org.mapstruct;
     exports com.ricardocreates.translator.gui.converter;
     //exports com.ricardocreates.translator.interpreter.libretranslate to org.mapstruct;
     exports com.ricardocreates.translator.interpreter.libretranslate;
