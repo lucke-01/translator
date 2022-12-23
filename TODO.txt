@@ -1,9 +1,2 @@
-new api to dictionary mode
-    use cambridge or similar
-Spring:
-    see if it worth implement spring in the app
-    if it is used spring: use ehcache to no repeat requests
-Improve performance:
-	check if the text is the same in thread but parsing a trim in order to no reply request with final spaces
 compilation:
 	use of Launch4J to generate and exe app

@@ -7,12 +7,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -29,6 +32,12 @@ class AboutControllerIntegrationTest {
     AboutGuiController aboutGuiController;
     Pane mainRoot;
     Stage mainStage;
+
+    @BeforeEach
+    public void setup() {
+        System.setProperty("configFile", FileUtil.getFileFromResourcePath("configExample.properties").toString());
+        Awaitility.await().atLeast(700, TimeUnit.MILLISECONDS);
+    }
 
     /**
      * Will be called with {@code @Before} semantics, i. e. before each test method.

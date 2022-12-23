@@ -1,12 +1,17 @@
 package com.ricardocreates.translator.gui;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
-import java.io.IOException;
-
+import com.ricardocreates.translator.gui.controller.MainAppGuiController;
+import com.ricardocreates.translator.model.KeyValuePair;
+import com.ricardocreates.translator.util.FileUtil;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import org.awaitility.Awaitility;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -17,17 +22,13 @@ import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Start;
 import org.testfx.util.WaitForAsyncUtils;
 
-import com.ricardocreates.translator.gui.controller.MainAppGuiController;
-import com.ricardocreates.translator.model.KeyValuePair;
-import com.ricardocreates.translator.util.FileUtil;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * should be executed with these vm parameters:
@@ -44,6 +45,13 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
     Pane mainRoot;
     Stage mainStage;
     FXMLLoader loader;
+
+    @AfterEach
+    public void setUp() throws InterruptedException {
+        //wait to set up
+        Awaitility.await().atLeast(700, TimeUnit.MILLISECONDS);
+        System.setProperty("configFile", FileUtil.getFileFromResourcePath("configExample.properties").toString());
+    }
 
     /**
      * Will be called with {@code @Before} semantics, i. e. before each test method.
@@ -71,7 +79,7 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
     }
 
     @Test
-    void should_buttonRevertLanguage_changeLanguage(FxRobot robot) {
+    void should_buttonRevertLanguage_changeLanguage(FxRobot robot) throws InterruptedException {
         //given
         KeyValuePair<String, String> comboLanguage1 = (KeyValuePair<String, String>) robot.lookup("#comboLanguage1").queryAs(ComboBox.class).getValue();
         KeyValuePair<String, String> comboLanguage2 = (KeyValuePair<String, String>) robot.lookup("#comboLanguage2").queryAs(ComboBox.class).getValue();
@@ -80,6 +88,7 @@ class MainAppControllerIntegrationTest extends ApplicationTest {
         //when
         clickOn("#buttonRevertLanguage");
         WaitForAsyncUtils.waitForFxEvents();
+        Thread.sleep(1 * 700);
         //then
         comboLanguage1 = (KeyValuePair<String, String>) robot.lookup("#comboLanguage1").queryAs(ComboBox.class).getValue();
         comboLanguage2 = (KeyValuePair<String, String>) robot.lookup("#comboLanguage2").queryAs(ComboBox.class).getValue();
