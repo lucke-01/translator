@@ -39,6 +39,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
@@ -51,83 +52,88 @@
 <?import javafx.scene.web.WebView?>
 
 <VBox id="mainBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ricardocreates.translator.gui.controller.MainAppGuiController">
-  <children>
-    <MenuBar id="menuBar" VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="menuQuit" mnemonicParsing="false" onAction="#menuItemQuit" text="Quit" />
-          </items>
-        </Menu>
-        <Menu id="menuEdit" mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem id="menuUndo1" fx:id="menuUndo" mnemonicParsing="false" onAction="#editMenuUndo" text="Undo" />
-            <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#editMenuRedo" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="menuCut" mnemonicParsing="false" onAction="#editMenuCut" text="Cut" />
-            <MenuItem fx:id="menuCopy" mnemonicParsing="false" onAction="#editMenuCopy" text="Copy" />
-            <MenuItem id="menuPaste" fx:id="menuPaste" mnemonicParsing="false" onAction="#editMenuPaste" text="Paste" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem id="menuSelectAll" fx:id="menuSelectAll" mnemonicParsing="false" onAction="#editMenuSelectAll" text="Select All" />
-            <MenuItem fx:id="menuUnselectAll" mnemonicParsing="false" onAction="#editMenuUnselectAll" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem id="menuHelpAbout" fx:id="menuHelpAbout" mnemonicParsing="false" onAction="#menuShowAboutAction" styleClass="menuHelpAbout" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-      <AnchorPane prefHeight="24.0" prefWidth="50.0">
+    <children>
+        <MenuBar id="menuBar" VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="menuQuit" mnemonicParsing="false" onAction="#menuItemQuit" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu id="menuEdit" mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem id="menuUndo1" fx:id="menuUndo" mnemonicParsing="false" onAction="#editMenuUndo" text="Undo" />
+                        <MenuItem fx:id="menuRedo" mnemonicParsing="false" onAction="#editMenuRedo" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="menuCut" mnemonicParsing="false" onAction="#editMenuCut" text="Cut" />
+                        <MenuItem fx:id="menuCopy" mnemonicParsing="false" onAction="#editMenuCopy" text="Copy" />
+                        <MenuItem id="menuPaste" fx:id="menuPaste" mnemonicParsing="false" onAction="#editMenuPaste" text="Paste" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem id="menuSelectAll" fx:id="menuSelectAll" mnemonicParsing="false" onAction="#editMenuSelectAll" text="Select All" />
+                        <MenuItem fx:id="menuUnselectAll" mnemonicParsing="false" onAction="#editMenuUnselectAll" text="Unselect All" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem id="menuHelpAbout" fx:id="menuHelpAbout" mnemonicParsing="false" onAction="#menuShowAboutAction" styleClass="menuHelpAbout" text="About MyHelloApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane prefHeight="24.0" prefWidth="50.0">
+            <children>
+                <AnchorPane layoutY="1.0" prefHeight="24.0" prefWidth="700.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <ComboBox id="comboLanguage1" fx:id="comboLanguage1" editable="true" prefWidth="250.0" />
+                        <Button id="buttonRevertLanguage" fx:id="buttonRevert" layoutX="250.0" mnemonicParsing="false" onAction="#revertButtonOnAction" text="Revert" />
+                        <ComboBox id="comboLanguage2" fx:id="comboLanguage2" editable="true" layoutX="312.0" prefWidth="250.0" />
+                    </children>
+                </AnchorPane>
+                <ComboBox fx:id="comboTranslatorApi" onAction="#comboTranslatorApiAction" prefWidth="150.0" AnchorPane.rightAnchor="1.0" />
+            </children>
+        </AnchorPane>
+      <AnchorPane prefHeight="24.0" prefWidth="200.0">
          <children>
-            <AnchorPane layoutY="1.0" prefHeight="24.0" prefWidth="700.0" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ComboBox id="comboLanguage1" fx:id="comboLanguage1" editable="true" prefWidth="250.0" />
-                  <Button id="buttonRevertLanguage" fx:id="buttonRevert" layoutX="250.0" mnemonicParsing="false" onAction="#revertButtonOnAction" text="Revert" />
-                  <ComboBox id="comboLanguage2" fx:id="comboLanguage2" editable="true" layoutX="312.0" prefWidth="250.0" />
-               </children>
-            </AnchorPane>
-            <ComboBox fx:id="comboTranslatorApi" onAction="#comboTranslatorApiAction" prefWidth="150.0" AnchorPane.rightAnchor="1.0" />
+            <ProgressBar fx:id="mainProgressBar" layoutX="6.0" layoutY="2.0" prefWidth="200.0" progress="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
-    <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <items>
-            <AnchorPane>
-               <children>
-                  <Label id="labelLanguage1" text="Source Language" AnchorPane.leftAnchor="12.0" />
-                  <TextArea id="textBoxTranslation1" fx:id="textAreaLanguage1" onKeyPressed="#textAreaLanguage1OnKeyPressed" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextArea>
-               </children>
-            </AnchorPane>
-        <AnchorPane>
-          <children>
-                  <Label id="labelLanguage2" text="Destination Language" AnchorPane.leftAnchor="12.0" />
-                  <WebView id="textBoxTranslation2" fx:id="textAreaLanguage2" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
-          </children>
-        </AnchorPane>
-      </items>
-    </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-      <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
-          <font>
-            <Font size="11.0" fx:id="x3" />
-          </font>
-          <textFill>
-            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
-          </textFill>
-        </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
-      </children>
-      <padding>
-        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-      </padding>
-    </HBox>
-  </children>
+        <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane>
+                    <children>
+                        <Label id="labelLanguage1" text="Source Language" AnchorPane.leftAnchor="12.0" />
+                        <TextArea id="textBoxTranslation1" fx:id="textAreaLanguage1" onKeyPressed="#textAreaLanguage1OnKeyPressed" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </TextArea>
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+                    <children>
+                        <Label id="labelLanguage2" text="Destination Language" AnchorPane.leftAnchor="12.0" />
+                        <WebView id="webViewLanguage2" fx:id="webViewLanguage2" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="11.0" fx:id="x3" />
+                    </font>
+                    <textFill>
+                        <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+                    </textFill>
+                </Label>
+                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+                <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+            </children>
+            <padding>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </HBox>
+    </children>
 </VBox>

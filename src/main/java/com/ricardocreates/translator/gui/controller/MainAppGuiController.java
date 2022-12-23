@@ -19,16 +19,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,7 +63,9 @@ public class MainAppGuiController implements Initializable {
     private TextArea textAreaLanguage1;
     @FXML
     @Getter
-    private WebView textAreaLanguage2;
+    private WebView webViewLanguage2;
+    @FXML
+    private ProgressBar mainProgressBar;
     private AutoCompleteComboBoxListener<KeyValuePair<String, String>> autoComboLanguage1;
     private AutoCompleteComboBoxListener<KeyValuePair<String, String>> autoComboLanguage2;
     @Getter
@@ -75,6 +75,18 @@ public class MainAppGuiController implements Initializable {
     private InterpreterService interpreterService;
 
     private ScheduledExecutorService delayedTranslationThread;
+
+    private double mainProgressBarStatus = 0;
+
+    public synchronized void setMainProgressStatus(double progressStatus) {
+        this.mainProgressBarStatus = progressStatus;
+        this.mainProgressBar.setProgress(progressStatus);
+        if (progressStatus >= 1) {
+            this.mainProgressBar.setVisible(false);
+        } else {
+            this.mainProgressBar.setVisible(true);
+        }
+    }
 
     @FXML
     void menuShowAboutAction(ActionEvent event) throws IOException {
@@ -93,6 +105,7 @@ public class MainAppGuiController implements Initializable {
 
     @FXML
     void comboTranslatorApiAction(ActionEvent event) {
+        this.setMainProgressStatus(0.80);
         this.chooseInterpreter(comboTranslatorApi.getValue().getKey());
         try {
             //fill languages
@@ -181,19 +194,22 @@ public class MainAppGuiController implements Initializable {
     public void processTextAreaLanguageOnKeyRelease() {
         try {
             String from = comboLanguage1.getValue().getKey();
-            String to = comboLanguage2.getValue() != null ? comboLanguage2.getValue().getKey() : null;
+            String to = comboLanguage2.getValue() != null ? comboLanguage2.getValue().getKey() : "";
             String text = textAreaLanguage1.getText();
-            String translatedText = this.interpreterService.translate(from, to, text);
-            if (this.interpreterService.isTypeBrowser()) {
-                textAreaLanguage2.getEngine().load(translatedText);
-            } else {
-                textAreaLanguage2.getEngine().loadContent(translatedText, "text/plain");
+            if (!StringUtils.isBlank(from) && !StringUtils.isBlank(text)) {
+                String translatedText = this.interpreterService.translate(from, to, text);
+                if (this.interpreterService.isTypeBrowser()) {
+                    webViewLanguage2.getEngine().load(translatedText);
+                } else {
+                    webViewLanguage2.getEngine().loadContent(translatedText, "text/plain");
+                }
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             AlertUtil.showErrorAlert("Translation error", "error translating text");
         } finally {
             this.setLastKeyPressedTime(null);
+            this.setMainProgressStatus(1);
         }
     }
 
@@ -235,6 +251,8 @@ public class MainAppGuiController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //set progress bar status
+        this.setMainProgressStatus(1);
         //converters
         this.comboLanguage1.setConverter(new StringKeyValuePairConverter(this));
         this.comboLanguage2.setConverter(new StringKeyValuePairConverter(this));

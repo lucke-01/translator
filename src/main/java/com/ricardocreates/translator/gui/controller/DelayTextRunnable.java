@@ -32,6 +32,7 @@ public class DelayTextRunnable implements Runnable {
             final Duration durationBetweenLastKeyPressed = Duration.between(lastKeyPressedTime, now);
             if (durationBetweenLastKeyPressed.toMillis() > desiredDurationBetweenLastKeyPressed) {
                 Platform.runLater(() -> {
+                    mainAppGuiController.setMainProgressStatus(0.80);
                     mainAppGuiController.processTextAreaLanguageOnKeyRelease();
                 });
             }
