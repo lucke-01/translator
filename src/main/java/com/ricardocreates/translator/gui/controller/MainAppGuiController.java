@@ -96,7 +96,7 @@ public class MainAppGuiController implements Initializable {
         this.chooseInterpreter(comboTranslatorApi.getValue().getKey());
         try {
             //fill languages
-            fillLanguages();
+            fillLanguages(true);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             AlertUtil.showErrorAlert("Unexpected error", "error filling languages");
@@ -184,18 +184,14 @@ public class MainAppGuiController implements Initializable {
             String to = comboLanguage2.getValue() != null ? comboLanguage2.getValue().getKey() : null;
             String text = textAreaLanguage1.getText();
             String translatedText = this.interpreterService.translate(from, to, text);
-            Platform.runLater(() -> {
-                if (this.interpreterService.isTypeBrowser()) {
-                    textAreaLanguage2.getEngine().load(translatedText);
-                } else {
-                    textAreaLanguage2.getEngine().loadContent(translatedText, "text/plain");
-                }
-            });
+            if (this.interpreterService.isTypeBrowser()) {
+                textAreaLanguage2.getEngine().load(translatedText);
+            } else {
+                textAreaLanguage2.getEngine().loadContent(translatedText, "text/plain");
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            Platform.runLater(() -> {
-                AlertUtil.showErrorAlert("Translation error", "error translating text");
-            });
+            AlertUtil.showErrorAlert("Translation error", "error translating text");
         } finally {
             this.setLastKeyPressedTime(null);
         }
@@ -205,9 +201,9 @@ public class MainAppGuiController implements Initializable {
         this.lastKeyPressedTime = time;
     }
 
-    void fillLanguages() {
+    void fillLanguages(boolean refreshTarget) {
         getAsycnAvailableLanguages().thenAccept(availableLanguages -> {
-            setUpLanguages(availableLanguages);
+            setUpLanguages(availableLanguages, refreshTarget);
         });
     }
 
@@ -255,7 +251,7 @@ public class MainAppGuiController implements Initializable {
                 .findFirst()
                 .ifPresent(api -> comboTranslatorApi.setValue(api));
         //fillLanguages
-        fillLanguages();
+        fillLanguages(false);
 
         //translator apis
         comboTranslatorApi.getItems().clear();
@@ -270,7 +266,7 @@ public class MainAppGuiController implements Initializable {
                 0, milliseconds, TimeUnit.MILLISECONDS);
     }
 
-    public void setUpLanguages(List<Language> availableLanguages) {
+    public void setUpLanguages(List<Language> availableLanguages, boolean refreshTarget) {
         Platform.runLater(() -> {
             try {
                 this.languages = availableLanguages;
@@ -295,11 +291,13 @@ public class MainAppGuiController implements Initializable {
                     findLanguageByAlfa2Key(userConfig.getDefaultTargetLanguage())
                             .ifPresent(lang -> comboLanguage2.setValue(new KeyValuePair<>(lang.getAlfa2Code(), lang.getName())));
                 }
+                if (refreshTarget) {
+                    processTextAreaLanguageOnKeyRelease();
+                }
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 AlertUtil.showErrorAlert("unexpected error", "error setting languages up");
             }
         });
-
     }
 }

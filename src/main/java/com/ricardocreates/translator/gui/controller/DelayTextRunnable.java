@@ -1,5 +1,6 @@
 package com.ricardocreates.translator.gui.controller;
 
+import javafx.application.Platform;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -30,7 +31,9 @@ public class DelayTextRunnable implements Runnable {
             final LocalDateTime now = LocalDateTime.now();
             final Duration durationBetweenLastKeyPressed = Duration.between(lastKeyPressedTime, now);
             if (durationBetweenLastKeyPressed.toMillis() > desiredDurationBetweenLastKeyPressed) {
-                mainAppGuiController.processTextAreaLanguageOnKeyRelease();
+                Platform.runLater(() -> {
+                    mainAppGuiController.processTextAreaLanguageOnKeyRelease();
+                });
             }
         }
     }
