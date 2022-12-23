@@ -26,4 +26,8 @@ public interface InterpreterService {
      * @return translation
      */
     String translate(String sourceLanguage, String destLanguage, String text);
+
+    default boolean isTypeBrowser() {
+        return false;
+    }
 }

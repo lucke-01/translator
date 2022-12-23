@@ -15,6 +15,7 @@ public interface CambridgeInterpreterMapper {
         Language lang = Language.builder().build();
 
         lang.setName(element.html());
+        lang.setAlfa2Code(element.attr(CambridgeInterpreterService.ATTRIBUTE_DICT_CODE));
         lang.setDictCode(element.attr(CambridgeInterpreterService.ATTRIBUTE_DICT_CODE));
 
         return lang;

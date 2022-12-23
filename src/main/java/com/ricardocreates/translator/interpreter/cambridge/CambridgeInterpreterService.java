@@ -34,7 +34,7 @@ public class CambridgeInterpreterService implements InterpreterService {
         try {
             doc = Jsoup.connect(dictionaryPath).get();
             Elements dictionaryLinks = doc.select("ul a[data-dictCode]");
-            dictionaryLinks.forEach(System.out::println);
+            //dictionaryLinks.forEach(System.out::println);
             return cambridgeInterpreterMapper.elementsToLanguages(dictionaryLinks);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
@@ -43,9 +43,9 @@ public class CambridgeInterpreterService implements InterpreterService {
 
     @Override
     public String translate(String sourceLanguage, String destLanguage, String text) {
-        String translation = "";
         String translationPath = String.format("%s/%s/%s/%s", mainUrl, DICTIONARY_PATH, sourceLanguage, text);
-        Document doc;
+        return translationPath;
+        /*Document doc;
         try {
             doc = Jsoup.connect(translationPath).get();
             Elements dictionaryLinks = doc.select("*");
@@ -53,6 +53,11 @@ public class CambridgeInterpreterService implements InterpreterService {
             return translation;
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
-        }
+        }*/
+    }
+
+    @Override
+    public boolean isTypeBrowser() {
+        return true;
     }
 }

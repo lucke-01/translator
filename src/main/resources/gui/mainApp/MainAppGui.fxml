@@ -48,6 +48,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
 <VBox id="mainBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ricardocreates.translator.gui.controller.MainAppGuiController">
   <children>
@@ -106,11 +107,7 @@
         <AnchorPane>
           <children>
                   <Label id="labelLanguage2" text="Idioma2" AnchorPane.leftAnchor="12.0" />
-                  <TextArea id="textBoxTranslation2" fx:id="textAreaLanguage2" editable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextArea>
+                  <WebView id="textBoxTranslation2" fx:id="textAreaLanguage2" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="24.0" />
           </children>
         </AnchorPane>
       </items>

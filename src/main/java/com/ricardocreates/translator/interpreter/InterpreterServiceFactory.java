@@ -1,6 +1,7 @@
 package com.ricardocreates.translator.interpreter;
 
 import com.ricardocreates.translator.config.TranslatorConfig;
+import com.ricardocreates.translator.interpreter.cambridge.CambridgeInterpreterService;
 import com.ricardocreates.translator.interpreter.libretranslate.LibreTranslateService;
 import com.ricardocreates.translator.interpreter.microsoft.MicrosfotApiInterpreterService;
 import com.ricardocreates.translator.interpreter.test.TestApiInterpreterService;
@@ -24,6 +25,7 @@ public class InterpreterServiceFactory {
             case TranslatorConfig.TEST_API_KEY -> new TestApiInterpreterService();
             case TranslatorConfig.LIBRE_TRANSLATE_API_KEY ->
                     new LibreTranslateService(TranslatorConfig.getUserConfig().getLibreTranslateConfig().getHost());
+            case TranslatorConfig.CAMBRIDGE_API_KEY -> new CambridgeInterpreterService();
             default -> throw new IllegalArgumentException("Unexpected value: " + interpreterApiKey);
         };
     }

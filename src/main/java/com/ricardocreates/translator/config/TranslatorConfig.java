@@ -12,7 +12,7 @@ public class TranslatorConfig {
     /**
      * path to user config file
      */
-    public static final String CONFIG_FILE_NAME = "./config/config.properties";
+    public static final String CONFIG_FILE_NAME = "./build-app/config/configExample.properties";
     /**
      * libre translate key
      */
@@ -21,6 +21,14 @@ public class TranslatorConfig {
      * libre translate api
      */
     public static final KeyValuePair<String, String> LIBRE_TRANSLATE_API = new KeyValuePair<>(LIBRE_TRANSLATE_API_KEY, "Libre Translate");
+    /**
+     * libre translate key
+     */
+    public static final String CAMBRIDGE_API_KEY = "cambridge";
+    /**
+     * libre translate api
+     */
+    public static final KeyValuePair<String, String> CAMBRIDGE_API = new KeyValuePair<>(CAMBRIDGE_API_KEY, "Cambridge");
     /**
      * microsoft api
      */
@@ -44,7 +52,8 @@ public class TranslatorConfig {
     /**
      * List of available apis including description
      */
-    public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(MICROSOFT_API, TEST_API, LIBRE_TRANSLATE_API);
+    public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(
+            MICROSOFT_API, TEST_API, LIBRE_TRANSLATE_API, CAMBRIDGE_API);
     /**
      * default source language can be override by user configuraion file
      */
