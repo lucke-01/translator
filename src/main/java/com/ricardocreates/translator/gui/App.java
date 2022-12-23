@@ -1,5 +1,7 @@
 package com.ricardocreates.translator.gui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
-
 /**
  * JavaFX App
  */
@@ -17,6 +17,8 @@ import java.io.IOException;
 public class App extends Application {
     /**
      * app's main
+     * 
+     * in develop enviroment run with vm param: -DconfigFile=./build-app/config/configExample.properties
      *
      * @param args - command parameters
      */

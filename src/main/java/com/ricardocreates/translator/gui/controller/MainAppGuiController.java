@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -83,8 +84,14 @@ public class MainAppGuiController implements Initializable {
         this.mainProgressBar.setProgress(progressStatus);
         if (progressStatus >= 1) {
             this.mainProgressBar.setVisible(false);
+            if (this.mainProgressBar.getScene() != null) {
+                this.comboLanguage1.getScene().getRoot().setCursor(Cursor.DEFAULT);
+            }
         } else {
             this.mainProgressBar.setVisible(true);
+            if (this.mainProgressBar.getScene() != null) {
+                this.comboLanguage1.getScene().getRoot().setCursor(Cursor.WAIT);
+            }
         }
     }
 

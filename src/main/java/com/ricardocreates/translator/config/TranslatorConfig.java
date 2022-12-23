@@ -12,7 +12,7 @@ public class TranslatorConfig {
     /**
      * path to user config file
      */
-    public static final String CONFIG_FILE_NAME = "./build-app/config/configExample.properties";
+    public static final String CONFIG_FILE_NAME = "./config/config.properties";
     /**
      * libre translate key
      */
