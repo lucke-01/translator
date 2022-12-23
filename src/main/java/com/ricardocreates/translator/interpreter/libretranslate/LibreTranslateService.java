@@ -1,24 +1,24 @@
 package com.ricardocreates.translator.interpreter.libretranslate;
 
-import java.util.List;
-
-import org.mapstruct.factory.Mappers;
-
 import com.ricardocreates.translator.interpreter.InterpreterService;
 import com.ricardocreates.translator.interpreter.libretranslate.entity.LanguageResponse;
 import com.ricardocreates.translator.interpreter.libretranslate.entity.TranslationRequest;
 import com.ricardocreates.translator.interpreter.libretranslate.entity.TranslationResponse;
 import com.ricardocreates.translator.interpreter.model.Language;
-
 import feign.Feign;
 import feign.Logger;
 import feign.gson.GsonDecoder;
 import feign.gson.GsonEncoder;
 import feign.okhttp.OkHttpClient;
+import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * dummy implementation only for test app if you do not have access to real api
  */
+@Slf4j
 public class LibreTranslateService implements InterpreterService {
     private final LibreTranslateMapper libreTranslateMapper = Mappers.getMapper(LibreTranslateMapper.class);
     private String apiUrl;
@@ -39,7 +39,7 @@ public class LibreTranslateService implements InterpreterService {
 
     public void init() {
         OkHttpClient okHttpClient = new OkHttpClient();
-        
+
         this.libreTranslateClient = Feign.builder()
                 .client(new OkHttpClient())
                 .encoder(new GsonEncoder())
@@ -53,10 +53,10 @@ public class LibreTranslateService implements InterpreterService {
     public List<Language> getAvailableLanguages() {
         List<LanguageResponse> languagesResponse = this.libreTranslateClient.getLanguages();
         try {
-            Thread.sleep(1* 5000);
+            Thread.sleep(1 * 5000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            log.error(e.getMessage(), e);
         }
         return this.libreTranslateMapper.toLanguageList(languagesResponse);
     }

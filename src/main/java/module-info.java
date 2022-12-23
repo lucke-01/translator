@@ -18,6 +18,7 @@ module com.ricardocreates {
     requires feign.slf4j;
     requires org.jsoup;
     requires javafx.web;
+    requires org.slf4j;
     exports com.ricardocreates.translator.gui;
     exports com.ricardocreates.translator.gui.controller;
     exports com.ricardocreates.translator.interpreter.microsoft to org.mapstruct;

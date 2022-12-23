@@ -60,4 +60,9 @@ public class CambridgeInterpreterService implements InterpreterService {
     public boolean isTypeBrowser() {
         return true;
     }
+
+    @Override
+    public boolean isTypeOneLanguageSelection() {
+        return true;
+    }
 }

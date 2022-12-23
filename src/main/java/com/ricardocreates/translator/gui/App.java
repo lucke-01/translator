@@ -1,17 +1,19 @@
 package com.ricardocreates.translator.gui;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.IOException;
 
 /**
  * JavaFX App
  */
+@Slf4j
 public class App extends Application {
     /**
      * app's main
@@ -42,7 +44,7 @@ public class App extends Application {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
     }
 

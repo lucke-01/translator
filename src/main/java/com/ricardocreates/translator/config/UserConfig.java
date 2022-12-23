@@ -25,6 +25,9 @@ public class UserConfig {
     public static final String LIBRE_TRANSLATE_HOST = "https://libretranslate.de";
     public static final String LIBRE_TRANSLATE_API_KEY_PROPERTY = "libreTranslate.apiKey";
 
+    public static final String CAMBRIDGE_DEFAULT_LANGUAGE_KEY_PROPERTY = "config.api.cambridge.defaultLanguage";
+    public static final String CAMBRIDGE_DEFAULT_LANGUAGE_DEFAULT_VALUE = "english-spanish";
+
     /**
      * time to wait
      */
@@ -36,6 +39,7 @@ public class UserConfig {
 
     private String defaultApi;
     private String defaultSourceLanguage;
+    private CambridgeConfig cambridgeConfig;
     private String defaultTargetLanguage;
     private MicrosoftApiConfig microsoftApiConfig;
     private DelayedThreadConfig delayedThread;
@@ -74,6 +78,11 @@ public class UserConfig {
                         MicrosoftApiConfig.builder()
                                 .ocpApimSubscriptionKey(properties.get(MICROSOFT_API_SUBSCRIPTION_KEY_PROPERTY).toString())
                                 .ocpApimSubscriptionRegion(properties.get(MICROSOFT_API_SUBSCRIPTION_REGION_PROPERTY).toString())
+                                .build()
+                )
+                .cambridgeConfig(
+                        CambridgeConfig.builder()
+                                .defaultLanguage(properties.getOrDefault(CAMBRIDGE_DEFAULT_LANGUAGE_KEY_PROPERTY, CAMBRIDGE_DEFAULT_LANGUAGE_DEFAULT_VALUE).toString())
                                 .build()
                 )
                 .build();

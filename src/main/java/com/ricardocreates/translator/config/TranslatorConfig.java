@@ -52,8 +52,9 @@ public class TranslatorConfig {
     /**
      * List of available apis including description
      */
+    //removed MICROSOFT_API
     public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(
-            MICROSOFT_API, TEST_API, LIBRE_TRANSLATE_API, CAMBRIDGE_API);
+            CAMBRIDGE_API, LIBRE_TRANSLATE_API, TEST_API);
     /**
      * default source language can be override by user configuraion file
      */
