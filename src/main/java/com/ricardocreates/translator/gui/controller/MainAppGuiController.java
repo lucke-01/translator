@@ -97,6 +97,7 @@ public class MainAppGuiController implements Initializable {
         }
     }
     void activeDisableControlsOnLoading(boolean disable) {
+    	System.out.println("DISABLED ? " + disable);
     	this.comboLanguage1.setDisable(disable);
     	this.comboLanguage2.setDisable(disable);
     	this.buttonRevert.setDisable(disable);
