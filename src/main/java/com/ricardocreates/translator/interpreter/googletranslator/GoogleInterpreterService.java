@@ -1,4 +1,4 @@
-package com.ricardocreates.translator.interpreter.cambridge;
+package com.ricardocreates.translator.interpreter.googletranslator;
 
 import com.ricardocreates.translator.interpreter.InterpreterService;
 import com.ricardocreates.translator.interpreter.InterpreterWebView;
@@ -18,13 +18,11 @@ import java.util.List;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-public class CambridgeInterpreterService implements InterpreterService, InterpreterWebView {
+public class GoogleInterpreterService implements InterpreterService, InterpreterWebView {
 
-    public static final String ATTRIBUTE_DICT_CODE = "data-dictcode";
-    private static final String DICTIONARY_PATH = "dictionary";
-    private String mainUrl = "https://dictionary.cambridge.org";
+    private String mainUrl = "https://translate.google.com";
 
-    private CambridgeInterpreterMapper cambridgeInterpreterMapper = new CambridgeInterpreterMapper() {};
+    private GoogleInterpreterMapper cambridgeInterpreterMapper = new GoogleInterpreterMapper() {};
 
     @Override
     public List<Language> getAvailableLanguages() {
@@ -34,7 +32,8 @@ public class CambridgeInterpreterService implements InterpreterService, Interpre
             doc = Jsoup.connect(dictionaryPath).get();
             Elements dictionaryLinks = doc.select("ul a[data-dictCode]");
             //dictionaryLinks.forEach(System.out::println);
-            return cambridgeInterpreterMapper.elementsToLanguages(dictionaryLinks);
+            //return cambridgeInterpreterMapper.elementsToLanguages(dictionaryLinks);
+            return null;
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
@@ -42,8 +41,9 @@ public class CambridgeInterpreterService implements InterpreterService, Interpre
 
     @Override
     public String translate(String sourceLanguage, String destLanguage, String text) {
-        String translationPath = String.format("%s/%s/%s/%s", mainUrl, DICTIONARY_PATH, sourceLanguage, text);
-        return translationPath;
+        //String translationPath = String.format("%s/%s/%s/%s", mainUrl, DICTIONARY_PATH, sourceLanguage, text);
+        //return translationPath;
+    	return "";
     }
 
     @Override

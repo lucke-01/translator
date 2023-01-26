@@ -76,6 +76,7 @@ public class MainAppGuiController implements Initializable {
     private InterpreterService interpreterService;
 
     private ScheduledExecutorService delayedTranslationThread;
+    private CompletableFuture<List<Language>> completableListOfLanguages;
 
     private double mainProgressBarStatus = 0;
 
@@ -232,9 +233,18 @@ public class MainAppGuiController implements Initializable {
     public synchronized void setLastKeyPressedTime(LocalDateTime time) {
         this.lastKeyPressedTime = time;
     }
-
+    void cancelCompletableListOfLanguages() {
+    	if (this.completableListOfLanguages != null) {
+    		if (!this.completableListOfLanguages.isCancelled()) {
+    			this.completableListOfLanguages.cancel(true);
+    		}
+    	}
+    }
     void fillLanguages(boolean refreshTarget) {
-        getAsycnAvailableLanguages().thenAccept(availableLanguages -> {
+    	this.cancelCompletableListOfLanguages();
+    	this.completableListOfLanguages = getAsycnAvailableLanguages();
+    	
+    	this.completableListOfLanguages.thenAccept(availableLanguages -> {
             setUpLanguages(availableLanguages, refreshTarget);
         });
     }

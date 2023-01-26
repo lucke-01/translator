@@ -52,12 +52,6 @@ public class LibreTranslateService implements InterpreterService {
     @Override
     public List<Language> getAvailableLanguages() {
         List<LanguageResponse> languagesResponse = this.libreTranslateClient.getLanguages();
-        try {
-            Thread.sleep(1 * 5000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error(e.getMessage(), e);
-        }
         return this.libreTranslateMapper.toLanguageList(languagesResponse);
     }
 
