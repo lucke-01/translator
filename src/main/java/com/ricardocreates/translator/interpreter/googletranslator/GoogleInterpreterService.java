@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.mapstruct.factory.Mappers;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,10 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GoogleInterpreterService implements InterpreterService, InterpreterWebView {
+	
+	public static final String ATTRIBUTE_DATA_LC = "data-lc";
+	public static final String TRANSLATE_OPERATION = "translate";
 
     private String mainUrl = "https://translate.google.com";
+    
+    private String defaultHl = "es";
 
-    private GoogleInterpreterMapper cambridgeInterpreterMapper = new GoogleInterpreterMapper() {};
+    private GoogleInterpreterMapper googleInterpreterMapper = new GoogleInterpreterMapper() {};
 
     @Override
     public List<Language> getAvailableLanguages() {
@@ -30,10 +34,8 @@ public class GoogleInterpreterService implements InterpreterService, Interpreter
         Document doc;
         try {
             doc = Jsoup.connect(dictionaryPath).get();
-            Elements dictionaryLinks = doc.select("ul a[data-dictCode]");
-            //dictionaryLinks.forEach(System.out::println);
-            //return cambridgeInterpreterMapper.elementsToLanguages(dictionaryLinks);
-            return null;
+            Elements languageLi = doc.select(String.format("li[%s]", ATTRIBUTE_DATA_LC));
+            return googleInterpreterMapper.elementsToLanguages(languageLi);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
@@ -41,18 +43,8 @@ public class GoogleInterpreterService implements InterpreterService, Interpreter
 
     @Override
     public String translate(String sourceLanguage, String destLanguage, String text) {
-        //String translationPath = String.format("%s/%s/%s/%s", mainUrl, DICTIONARY_PATH, sourceLanguage, text);
-        //return translationPath;
-    	return "";
-    }
-
-    @Override
-    public boolean isTypeBrowser() {
-        return true;
-    }
-
-    @Override
-    public boolean isTypeOneLanguageSelection() {
-        return true;
+    	//example https://translate.google.com/?hl=es&sl=es&tl=en&text=hola&op=translate
+    	String translationPath = String.format("%s/?hl=%s&sl=%s&tl=%s&text=%s&op=%s", mainUrl, defaultHl, sourceLanguage, destLanguage, text, TRANSLATE_OPERATION);
+        return translationPath;
     }
 }

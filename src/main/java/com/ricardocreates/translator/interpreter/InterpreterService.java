@@ -28,15 +28,6 @@ public interface InterpreterService {
     String translate(String sourceLanguage, String destLanguage, String text);
 
     /**
-     * represents if this will be translated or if this will display a website with the translation inside
-     *
-     * @return boolean
-     */
-    default boolean isTypeBrowser() {
-        return false;
-    }
-
-    /**
      * represents is this interpreter will allow source and target language or only source with (source and target)
      *
      * @return boolean

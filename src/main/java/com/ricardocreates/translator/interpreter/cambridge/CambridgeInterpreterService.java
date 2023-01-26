@@ -47,11 +47,6 @@ public class CambridgeInterpreterService implements InterpreterService, Interpre
     }
 
     @Override
-    public boolean isTypeBrowser() {
-        return true;
-    }
-
-    @Override
     public boolean isTypeOneLanguageSelection() {
         return true;
     }

@@ -30,6 +30,14 @@ public class TranslatorConfig {
      */
     public static final KeyValuePair<String, String> CAMBRIDGE_API = new KeyValuePair<>(CAMBRIDGE_API_KEY, "Cambridge");
     /**
+     * google translate key
+     */
+    public static final String GOOGLE_API_KEY = "google";
+    /**
+     * google translate api
+     */
+    public static final KeyValuePair<String, String> GOOGLE_API = new KeyValuePair<>(GOOGLE_API_KEY, "Google");
+    /**
      * microsoft api
      */
     public static final String MICROSOFT_API_KEY = "microsoft";
@@ -54,7 +62,7 @@ public class TranslatorConfig {
      */
     //removed MICROSOFT_API
     public static final List<KeyValuePair<String, String>> AVAILABLE_APIS = List.of(
-            CAMBRIDGE_API, LIBRE_TRANSLATE_API, TEST_API);
+            GOOGLE_API, CAMBRIDGE_API, LIBRE_TRANSLATE_API, TEST_API);
     /**
      * default source language can be override by user configuraion file
      */

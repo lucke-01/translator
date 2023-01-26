@@ -7,6 +7,7 @@ import com.ricardocreates.translator.gui.converter.StringKeyValuePairConverter;
 import com.ricardocreates.translator.gui.util.AlertUtil;
 import com.ricardocreates.translator.interpreter.InterpreterService;
 import com.ricardocreates.translator.interpreter.InterpreterServiceFactory;
+import com.ricardocreates.translator.interpreter.InterpreterWebView;
 import com.ricardocreates.translator.interpreter.cambridge.CambridgeInterpreterService;
 import com.ricardocreates.translator.interpreter.model.Language;
 import com.ricardocreates.translator.model.KeyValuePair;
@@ -98,7 +99,6 @@ public class MainAppGuiController implements Initializable {
         }
     }
     void activeDisableControlsOnLoading(boolean disable) {
-    	System.out.println("DISABLED ? " + disable);
     	this.comboLanguage1.setDisable(disable);
     	this.comboLanguage2.setDisable(disable);
     	this.buttonRevert.setDisable(disable);
@@ -215,7 +215,7 @@ public class MainAppGuiController implements Initializable {
             String text = textAreaLanguage1.getText();
             if (!StringUtils.isBlank(from) && !StringUtils.isBlank(text)) {
                 String translatedText = this.interpreterService.translate(from, to, text);
-                if (this.interpreterService.isTypeBrowser()) {
+                if (this.interpreterService instanceof InterpreterWebView) {
                     webViewLanguage2.getEngine().load(translatedText);
                 } else {
                     webViewLanguage2.getEngine().loadContent(translatedText, "text/plain");
@@ -287,8 +287,6 @@ public class MainAppGuiController implements Initializable {
         autoComboLanguage2 = new AutoCompleteComboBoxListener<>(comboLanguage2);
         //set interpreterService
         chooseInterpreter(userConfig.getDefaultApi());
-        //interpreterService = InterpreterServiceFactory.getInterpreterService(userConfig.getDefaultApi());
-        //this.setVisibilityComboLanguage();
 
         TranslatorConfig.AVAILABLE_APIS.stream()
                 .filter(api -> api.getKey().equals(userConfig.getDefaultApi()))

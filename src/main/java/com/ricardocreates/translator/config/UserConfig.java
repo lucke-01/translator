@@ -44,6 +44,7 @@ public class UserConfig {
     private MicrosoftApiConfig microsoftApiConfig;
     private DelayedThreadConfig delayedThread;
     private LibreTranslateConfig libreTranslateConfig;
+    private GoogleConfig googleConfig;
 
     /**
      * creates a new instance of userConfig using config.json file or default config if no exists
@@ -85,6 +86,7 @@ public class UserConfig {
                                 .defaultLanguage(properties.getOrDefault(CAMBRIDGE_DEFAULT_LANGUAGE_KEY_PROPERTY, CAMBRIDGE_DEFAULT_LANGUAGE_DEFAULT_VALUE).toString())
                                 .build()
                 )
+                .googleConfig(GoogleConfig.builder().build())
                 .build();
     }
 }
