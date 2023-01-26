@@ -24,7 +24,7 @@ public class CambridgeInterpreterService implements InterpreterService {
     private static final String DICTIONARY_PATH = "dictionary";
     private String mainUrl = "https://dictionary.cambridge.org";
 
-    private CambridgeInterpreterMapper cambridgeInterpreterMapper = Mappers.getMapper(CambridgeInterpreterMapper.class);
+    private CambridgeInterpreterMapper cambridgeInterpreterMapper = new CambridgeInterpreterMapper() {};
 
     @Override
     public List<Language> getAvailableLanguages() {

@@ -32,7 +32,7 @@ public class MicrosfotApiInterpreterService implements InterpreterService {
     private final String apiVersion = "?api-version=3.0";
     private final UserConfig userConfig = TranslatorConfig.getUserConfig();
     private String basicUrlApi = "https://api.cognitive.microsofttranslator.com/";
-    private MicrosoftInterpreterMapper msInterpreterMapper = Mappers.getMapper(MicrosoftInterpreterMapper.class);
+    private MicrosoftInterpreterMapper msInterpreterMapper = new MicrosoftInterpreterMapper() {};
 
     public MicrosfotApiInterpreterService(String basicUrlApi) {
         this.basicUrlApi = basicUrlApi;

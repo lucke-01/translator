@@ -85,14 +85,22 @@ public class MainAppGuiController implements Initializable {
         if (progressStatus >= 1) {
             this.mainProgressBar.setVisible(false);
             if (this.mainProgressBar.getScene() != null) {
+            	this.activeDisableControlsOnLoading(false);
                 this.comboLanguage1.getScene().getRoot().setCursor(Cursor.DEFAULT);
             }
         } else {
             this.mainProgressBar.setVisible(true);
             if (this.mainProgressBar.getScene() != null) {
+            	this.activeDisableControlsOnLoading(true);
                 this.comboLanguage1.getScene().getRoot().setCursor(Cursor.WAIT);
             }
         }
+    }
+    void activeDisableControlsOnLoading(boolean disable) {
+    	this.comboLanguage1.setDisable(disable);
+    	this.comboLanguage2.setDisable(disable);
+    	this.buttonRevert.setDisable(disable);
+    	this.textAreaLanguage1.setDisable(disable);
     }
 
     @FXML
