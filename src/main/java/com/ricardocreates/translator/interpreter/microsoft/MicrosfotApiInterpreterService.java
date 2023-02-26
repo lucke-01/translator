@@ -60,7 +60,6 @@ public class MicrosfotApiInterpreterService implements InterpreterService {
     @Override
     public String translate(String sourceLanguage, String destLanguage, String text) {
         final String translateUrl = String.format("%stranslate%s&from=%s&to=%s", basicUrlApi, apiVersion, sourceLanguage, destLanguage);
-        System.out.println(translateUrl);
         HttpPost translatePost = new HttpPost(translateUrl);
         final String jsonStringBody = String.format("[{\"text\": \"%s\"}]", text);
 

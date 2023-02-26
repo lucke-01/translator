@@ -48,10 +48,6 @@ public interface GoogleInterpreterMapper {
         	finalName = secondPartString;
         }
         lang.setName(finalName);
-        
-        System.out.println("ELEMENT:");
-        System.out.println(element.toString());
-
         return lang;
     }
 	default List<Language> elementsToLanguages(Elements elements) {

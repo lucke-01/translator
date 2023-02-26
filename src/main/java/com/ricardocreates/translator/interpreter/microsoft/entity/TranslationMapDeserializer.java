@@ -26,7 +26,6 @@ public class TranslationMapDeserializer implements JsonDeserializer<List<Languag
             for(Map.Entry<String, JsonElement> entry1 : cityJsonObject.entrySet()){
                 language = new LanguageEntity();
                 Object value = entry1.getValue();
-                System.out.println(value);
             }
         }
         return languageList;

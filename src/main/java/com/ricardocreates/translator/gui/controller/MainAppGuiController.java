@@ -248,14 +248,16 @@ public class MainAppGuiController implements Initializable {
             setUpLanguages(availableLanguages, refreshTarget);
         });
     }
-
+    //TODO: change CompletableFuture to FX Task
     private CompletableFuture<List<Language>> getAsycnAvailableLanguages() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 return interpreterService.getAvailableLanguages();
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
-                AlertUtil.showErrorAlert("available languages", "error getting available languages");
+                Platform.runLater(() -> {
+            		AlertUtil.showErrorAlert("available languages", "error getting available languages");
+            	});
             }
             return List.of();
         });
